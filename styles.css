@@ -1,0 +1,44 @@
+
+body{
+    width: 100%;
+    text-align: center;
+    background-color: white;
+}
+
+aside{
+    display: inline;
+    margin: 100px;
+}
+h1{
+    text-align: center;
+    color:tomato;
+    font-size: 100px;
+}
+
+
+.colour-btn{
+    border-radius: 10px;
+    height: 100px;
+    width: 100px;
+    display: inline-block;
+    border: 1px solid grey;
+    margin: 10px;
+    margin-top: 100px;
+}
+
+#red{
+    background-color: red;
+}
+#green{
+    background-color: rgb(9, 250, 37);
+}
+#blue{
+    background-color: rgb(2, 95, 255);
+}
+#yellow{
+    background-color: yellow;
+}
+
+span{
+    color: blue;
+}
