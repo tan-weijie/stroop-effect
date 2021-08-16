@@ -3,6 +3,8 @@
 
 let timer;
 let timeLeft = 10;    
+let score = 0;
+let level = 1;
 
 function randomColour(){
     let red = Math.floor(Math.random() * 256);
@@ -28,15 +30,28 @@ colourButtons.addEventListener("click",(e) =>{
     if (e.target.className === "colour-btn"){
         if (e.target.id === document.querySelector("span").innerText){
             console.log("Correct!");
+            score++;  
+            if (score % 10 === 0){
+                level++;
+                document.querySelector("#level").innerText = `Level: ${level}`    
+            }
+            document.querySelector("#score").innerText = `Score: ${score}`
             document.querySelector("span").innerText = randomText();
             document.querySelector("span").style.color = randomColour();
         }
         else {
             console.log("Wrong!");
+            document.querySelector("body").className = "flash";
+            setTimeout(function(){
+            document.querySelector("body").className = "";            
+            });
         }    
     }
 });
 
+function addTime(time){
+    start()
+}
 
 //Game timer
 function updateTimer(){
@@ -52,6 +67,8 @@ function updateTimer(){
 
 //Start function
 function start(){
+    document.querySelector("h1").innerText = "Stroop Effect";
+    document.querySelector("#play").style.visibility = "hidden";
     timer = setInterval(updateTimer,1000);
     updateTimer();
 }
@@ -63,4 +80,5 @@ function quit(){
     console.log("game over!");
     document.querySelector("h1").innerHTML = "GAME OVER!";
     clearInterval(timer);
+    document.querySelector("#play").style.visibility = "visible";
 }

@@ -5,6 +5,9 @@ body{
     text-align: center;
     background: linear-gradient(to right, rgb(127, 254, 127),rgb(0, 255, 251));
 }
+.flash{
+    background: red;
+}
 
 aside{
     display: inline;
@@ -17,6 +20,7 @@ h1{
 }
 
 h2{
+    font-size: 40px;
     background: rgba(255,255,255,.7);
 }
 .colour-btn{
