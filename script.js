@@ -2,9 +2,20 @@
 
 
 let timer;
-let timeLeft = 10;    
+let timeLeft = 10;
 let score = 0;
 let level = 1;
+
+// class Game{
+//     constructor(level = 1, score = 0, timeLeft = 10){
+//         this.level = level,
+//         this.score = score,
+//         this.timeLeft = timeLeft
+//     }
+// }
+
+document.querySelector("h2").style.visibility = "hidden";
+document.querySelector(".answers").style.visibility = "hidden";
 
 function randomColour(){
     let red = Math.floor(Math.random() * 256);
@@ -14,71 +25,86 @@ function randomColour(){
     return colour;
 }
 
-document.querySelector("span").style.color = randomColour();
-
 function randomText(){
     const text = ["RED", "GREEN", "BLUE", "YELLOW"];
     let i = Math.floor(Math.random() * 4);
     return text[i];
 }
 
-
+function addTime(num){
+    timeLeft += num;
+    timer;
+}
 
 //Main game mechanics
-const colourButtons = document.querySelector(".answers");
-colourButtons.addEventListener("click",(e) =>{  
-    if (e.target.className === "colour-btn"){
-        if (e.target.id === document.querySelector("span").innerText){
-            console.log("Correct!");
-            score++;  
-            if (score % 10 === 0){
-                level++;
-                document.querySelector("#level").innerText = `Level: ${level}`    
+function game(){
+    score = 0;
+    level = 1;
+    document.querySelector("h2").innerText = randomText();
+    document.querySelector("h2").style.color = randomColour();
+    document.querySelector("#level").innerText = `Level: 1`
+    document.querySelector("#score").innerText = `Score: 0`
+    const colourButtons = document.querySelector(".answers"); //this creates another eventlistener. how to prevent?
+    colourButtons.addEventListener("click",(e) =>{  
+        if (e.target.className === "colour-btn"){
+            if (e.target.id === document.querySelector("h2").innerText){
+                console.log(document.querySelector("h2").innerText);
+                console.log("Correct!");
+                score++;  
+                if (score % 10 === 0){
+                    level++;
+                    document.querySelector("#level").innerText = `Level: ${level}`    
+                }
+                document.querySelector("#score").innerText = `Score: ${score}`
+                document.querySelector("h2").innerText = randomText();
+                document.querySelector("h2").style.color = randomColour();
+                addTime(2);
             }
-            document.querySelector("#score").innerText = `Score: ${score}`
-            document.querySelector("span").innerText = randomText();
-            document.querySelector("span").style.color = randomColour();
+            else {
+                console.log("Wrong!");
+                addTime(-2);
+                document.querySelector("body").className = "flash";
+                setTimeout(function(){
+                document.querySelector("body").className = "";            
+                });
+            }    
         }
-        else {
-            console.log("Wrong!");
-            document.querySelector("body").className = "flash";
-            setTimeout(function(){
-            document.querySelector("body").className = "";            
-            });
-        }    
-    }
-});
-
-function addTime(time){
-    start()
+    });
 }
 
 //Game timer
 function updateTimer(){
-
     if(timeLeft > 0){
-        timeLeft -= 1;
-        console.log(timeLeft);
-        document.querySelector("#time-left").innerText = `Time Left : ${timeLeft}`;
+        document.querySelector("#time-left").innerText = `Time Left : ${timeLeft.toFixed(1)}`;
+        timeLeft -= (0.05 + (level * 0.05));
+        // console.log(timeLeft);        
     }
     else
         quit();    
 }
 
+document.querySelector("#play").addEventListener("click",start);
+
 //Start function
 function start(){
+    timeLeft = 10;
+    document.querySelector("h2").style.visibility = "visible";
     document.querySelector("h1").innerText = "Stroop Effect";
+    document.querySelector(".answers").style.visibility = "visible";
     document.querySelector("#play").style.visibility = "hidden";
-    timer = setInterval(updateTimer,1000);
+    timer = setInterval(updateTimer,100);
     updateTimer();
+    game();
 }
-
-document.querySelector("#play").addEventListener("click",start);
 
 //Quit function
 function quit(){
     console.log("game over!");
     document.querySelector("h1").innerHTML = "GAME OVER!";
-    clearInterval(timer);
+    document.querySelector("h2").innerHTML = `Your score is ${score}!`;
+    document.querySelector(".answers").style.visibility = "hidden";
+    document.querySelector("#time-left").innerText = `Time Left : 0`;
     document.querySelector("#play").style.visibility = "visible";
+    clearInterval(timer);
+    
 }
