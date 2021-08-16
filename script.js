@@ -37,8 +37,8 @@ function addTime(num){
 
 //Main game mechanics
 function game(){
-    score = 0;
-    level = 1;
+    score = 0; //resets score
+    level = 1; //resets level
     document.querySelector("h2").innerText = randomText();
     document.querySelector("h2").style.color = randomColour();
     document.querySelector("#level").innerText = `Level: 1`
@@ -63,11 +63,9 @@ colourButtons.addEventListener("click",(e) =>{
         }
         else {
             console.log("Wrong!");
-            addTime(-2);
+            addTime(-1);
             document.querySelector("body").className = "flash";
-            setTimeout(function(){
-            document.querySelector("body").className = "";            
-            });
+            setTimeout(function(){document.querySelector("body").className = ""});
         }    
     }
 });
@@ -75,8 +73,13 @@ colourButtons.addEventListener("click",(e) =>{
 //Game timer
 function updateTimer(){
     if(timeLeft > 0){
-        document.querySelector("#time-left").innerText = `Time Left : ${timeLeft.toFixed(1)}`;
+        document.querySelector("#time-left").innerText = `Time Left : ${timeLeft.toFixed(1)}`; //rounds off to 1 decimal place
         timeLeft -= (0.05 + (level * 0.05));
+        if (timeLeft <= 5){
+            document.querySelector("#time-left").style.color = "red";
+        }
+        else
+            document.querySelector("#time-left").style.color = "black";
         // console.log(timeLeft);        
     }
     else
@@ -101,7 +104,7 @@ function start(){
 function quit(){
     console.log("game over!");
     document.querySelector("h1").innerHTML = "GAME OVER!";
-    document.querySelector("h2").innerHTML = `Your score is ${score}!`;
+    document.querySelector("h2").innerHTML = `You score ${score} points!`;
     document.querySelector(".answers").style.visibility = "hidden";
     document.querySelector("#time-left").innerText = `Time Left : 0`;
     document.querySelector("#play").style.visibility = "visible";

@@ -1,5 +1,7 @@
 
 body{
+    font-size: large;
+    font-weight: bold;
     width: 100%;
     height: 100%;
     text-align: center;
@@ -15,7 +17,7 @@ aside{
 }
 h1{
     text-align: center center;
-    color:tomato;
+    color: tomato;
     font-size: 100px;
 }
 
@@ -24,6 +26,10 @@ h2{
     font-size: 40px;
     background: rgba(255,255,255,.7);
     margin-top: 100px;
+}
+#play{
+    margin-top: 50px;
+    width: 100px;
 }
 .colour-btn{
     border-radius: 10px;
