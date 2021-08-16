@@ -1,6 +1,5 @@
 "use strict";
 
-
 let timer;
 let timeLeft = 10;
 let score = 0;
@@ -44,33 +43,34 @@ function game(){
     document.querySelector("h2").style.color = randomColour();
     document.querySelector("#level").innerText = `Level: 1`
     document.querySelector("#score").innerText = `Score: 0`
-    const colourButtons = document.querySelector(".answers"); //this creates another eventlistener. how to prevent?
-    colourButtons.addEventListener("click",(e) =>{  
-        if (e.target.className === "colour-btn"){
-            if (e.target.id === document.querySelector("h2").innerText){
-                console.log(document.querySelector("h2").innerText);
-                console.log("Correct!");
-                score++;  
-                if (score % 10 === 0){
-                    level++;
-                    document.querySelector("#level").innerText = `Level: ${level}`    
-                }
-                document.querySelector("#score").innerText = `Score: ${score}`
-                document.querySelector("h2").innerText = randomText();
-                document.querySelector("h2").style.color = randomColour();
-                addTime(2);
-            }
-            else {
-                console.log("Wrong!");
-                addTime(-2);
-                document.querySelector("body").className = "flash";
-                setTimeout(function(){
-                document.querySelector("body").className = "";            
-                });
-            }    
-        }
-    });
 }
+
+const colourButtons = document.querySelector(".answers"); //this creates another eventlistener. how to prevent?
+colourButtons.addEventListener("click",(e) =>{  
+    if (e.target.className === "colour-btn"){
+        if (e.target.id === document.querySelector("h2").innerText){
+            console.log(document.querySelector("h2").innerText);
+            console.log("Correct!");
+            score++;  
+            if (score % 10 === 0){
+                level++;
+                document.querySelector("#level").innerText = `Level: ${level}`    
+            }
+            document.querySelector("#score").innerText = `Score: ${score}`
+            document.querySelector("h2").innerText = randomText();
+            document.querySelector("h2").style.color = randomColour();
+            addTime(2);
+        }
+        else {
+            console.log("Wrong!");
+            addTime(-2);
+            document.querySelector("body").className = "flash";
+            setTimeout(function(){
+            document.querySelector("body").className = "";            
+            });
+        }    
+    }
+});
 
 //Game timer
 function updateTimer(){
@@ -105,6 +105,5 @@ function quit(){
     document.querySelector(".answers").style.visibility = "hidden";
     document.querySelector("#time-left").innerText = `Time Left : 0`;
     document.querySelector("#play").style.visibility = "visible";
-    clearInterval(timer);
-    
+    clearInterval(timer);  
 }
