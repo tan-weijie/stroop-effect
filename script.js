@@ -4,6 +4,7 @@ let timer;
 let timeLeft = 10;
 let score = 0;
 let level = 1;
+let highScore = 0;
 
 // class Game{
 //     constructor(level = 1, score = 0, timeLeft = 10){
@@ -83,6 +84,9 @@ colourButtonsEvent.addEventListener("click",(e) =>{
             addTime(-1);
             document.querySelector("body").className = "flash";
             setTimeout(function(){document.querySelector("body").className = "";},1);
+        }
+        if (score > highScore){
+            highScore = score;
         }    
     }
 });
@@ -91,7 +95,7 @@ colourButtonsEvent.addEventListener("click",(e) =>{
 function updateTimer(){
     if(timeLeft > 0){
         document.querySelector("#time-left").innerText = `Time Left : ${timeLeft.toFixed(1)}`; //rounds off to 1 decimal place
-        timeLeft -= (0.08 + (level * 0.02));
+        timeLeft -= (0.07 + (level * 0.03));
         if (timeLeft <= 5){
             document.querySelector("#time-left").style.color = "red";
         }
@@ -108,6 +112,7 @@ document.querySelector("#play").addEventListener("click",start);
 //Start function
 function start(){
     timeLeft = 10;
+    document.getElementById("background-music").play();
     document.querySelector("h2").style.visibility = "visible";
     document.querySelector("h1").innerText = "Stroop Effect";
     document.querySelector(".answers").style.visibility = "visible";
@@ -119,6 +124,8 @@ function start(){
 
 //Quit function
 function quit(){
+    document.getElementById("background-music").pause();
+    document.getElementById("background-music").currentTime = 0;
     document.getElementById("congrats").play();
     console.log("game over!");
     document.querySelector("h1").innerHTML = "GAME OVER!";
