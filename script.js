@@ -57,12 +57,12 @@ function randomButtonPlacement(){
 }
 
 
-const colourButtonsEvent = document.querySelector(".answers"); //this creates another eventlistener. how to prevent?
+const colourButtonsEvent = document.querySelector(".answers"); 
 colourButtonsEvent.addEventListener("click",(e) =>{  
     if (e.target.className === "colour-btn"){
         if (level > 2){
             randomButtonPlacement();
-            
+
         }
         if (e.target.id === document.querySelector("h2").innerText){
             console.log(document.querySelector("h2").innerText);
@@ -78,6 +78,7 @@ colourButtonsEvent.addEventListener("click",(e) =>{
             addTime(2);
         }
         else {
+            document.getElementById("error").play();
             console.log("Wrong!");
             addTime(-1);
             document.querySelector("body").className = "flash";
@@ -90,7 +91,7 @@ colourButtonsEvent.addEventListener("click",(e) =>{
 function updateTimer(){
     if(timeLeft > 0){
         document.querySelector("#time-left").innerText = `Time Left : ${timeLeft.toFixed(1)}`; //rounds off to 1 decimal place
-        timeLeft -= (0.07 + (level * 0.03));
+        timeLeft -= (0.08 + (level * 0.02));
         if (timeLeft <= 5){
             document.querySelector("#time-left").style.color = "red";
         }
@@ -118,6 +119,7 @@ function start(){
 
 //Quit function
 function quit(){
+    document.getElementById("congrats").play();
     console.log("game over!");
     document.querySelector("h1").innerHTML = "GAME OVER!";
     document.querySelector("h2").innerHTML = `You score ${score} points!`;
