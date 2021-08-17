@@ -45,9 +45,25 @@ function game(){
     document.querySelector("#score").innerText = `Score: 0`
 }
 
-const colourButtons = document.querySelector(".answers"); //this creates another eventlistener. how to prevent?
-colourButtons.addEventListener("click",(e) =>{  
+//random button placement
+let colourBtn = document.querySelectorAll(".colour-btn");
+
+function randomButtonPlacement(){
+    for(let i = 0; i < colourBtn.length; i++){
+        let x = Math.floor(Math.random() * colourBtn.length);
+        console.log(colourBtn[x].before(colourBtn[i]));
+        colourBtn[x].before(colourBtn[i]);
+    }
+}
+
+
+const colourButtonsEvent = document.querySelector(".answers"); //this creates another eventlistener. how to prevent?
+colourButtonsEvent.addEventListener("click",(e) =>{  
     if (e.target.className === "colour-btn"){
+        if (level > 2){
+            randomButtonPlacement();
+            
+        }
         if (e.target.id === document.querySelector("h2").innerText){
             console.log(document.querySelector("h2").innerText);
             console.log("Correct!");
@@ -65,7 +81,7 @@ colourButtons.addEventListener("click",(e) =>{
             console.log("Wrong!");
             addTime(-1);
             document.querySelector("body").className = "flash";
-            setTimeout(function(){document.querySelector("body").className = ""});
+            setTimeout(function(){document.querySelector("body").className = "";},1);
         }    
     }
 });
@@ -74,7 +90,7 @@ colourButtons.addEventListener("click",(e) =>{
 function updateTimer(){
     if(timeLeft > 0){
         document.querySelector("#time-left").innerText = `Time Left : ${timeLeft.toFixed(1)}`; //rounds off to 1 decimal place
-        timeLeft -= (0.05 + (level * 0.05));
+        timeLeft -= (0.07 + (level * 0.03));
         if (timeLeft <= 5){
             document.querySelector("#time-left").style.color = "red";
         }
@@ -108,5 +124,10 @@ function quit(){
     document.querySelector(".answers").style.visibility = "hidden";
     document.querySelector("#time-left").innerText = `Time Left : 0`;
     document.querySelector("#play").style.visibility = "visible";
-    clearInterval(timer);  
+    clearInterval(timer);  //stops timer function
 }
+
+
+
+
+

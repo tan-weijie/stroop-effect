@@ -5,19 +5,21 @@ body{
     width: 100%;
     height: 100%;
     text-align: center;
-    background: linear-gradient(to right, rgb(127, 254, 127),rgb(0, 255, 251));
+    background: linear-gradient(to right, rgb(84, 245, 84),rgb(0, 145, 255));
 }
 .flash{
     background: red;
 }
 
 aside{
+    
     display: inline;
     margin: 100px;
 }
 h1{
     text-align: center center;
     color: tomato;
+    text-shadow: 3px 3px grey;
     font-size: 100px;
 }
 
@@ -32,11 +34,11 @@ h2{
     width: 100px;
 }
 .colour-btn{
-    border-radius: 10px;
+    border-radius: 15px;
     height: 150px;
     width: 150px;
     display: inline-block;
-    border: 1px solid grey;
+    border: 3px solid rgb(216, 212, 212);
     margin: 10px;
     margin-top: 50px;
     cursor: pointer;
