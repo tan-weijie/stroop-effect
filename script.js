@@ -5,6 +5,7 @@ let timeLeft = 10;
 let score = 0;
 let level = 1;
 let highScore = 0;
+let prevHighScore = 0;
 
 // class Game{
 //     constructor(level = 1, score = 0, timeLeft = 10){
@@ -48,7 +49,6 @@ function game(){
 
 //random button placement
 let colourBtn = document.querySelectorAll(".colour-btn");
-
 function randomButtonPlacement(){
     for(let i = 0; i < colourBtn.length; i++){
         let x = Math.floor(Math.random() * colourBtn.length);
@@ -60,9 +60,6 @@ function randomButtonPlacement(){
 const colourButtonsEvent = document.querySelector(".answers"); 
 colourButtonsEvent.addEventListener("click",(e) =>{  
     if (e.target.className === "colour-btn"){
-        if (level > 2){
-            randomButtonPlacement();
-        }
         if (e.target.id === document.querySelector("h2").innerText){
             console.log(document.querySelector("h2").innerText);
             console.log("Correct!");
@@ -75,14 +72,18 @@ colourButtonsEvent.addEventListener("click",(e) =>{
             document.querySelector("h2").innerText = randomText();
             document.querySelector("h2").style.color = randomColour();
             addTime(2);
+            if (level > 2){
+                randomButtonPlacement();
+            }
         }
         else {
             document.getElementById("error").play();
             console.log("Wrong!");
             addTime(-2);
-            document.querySelector("body").className = "flash";
-            setTimeout(function(){document.querySelector("body").className = "";},1);
+            document.querySelector("body").className = "flash"; //simulates a flash when wrong
+            setTimeout(function(){document.querySelector("body").className = "";},50);
         }
+        
         if (score > highScore){ //stores highscore
             highScore = score;
         }    
@@ -116,7 +117,7 @@ function start(){
     document.querySelector("h3").innerHTML = "";
     document.querySelector(".answers").style.visibility = "visible";
     document.querySelector("#play").style.visibility = "hidden";
-    timer = setInterval(updateTimer,100);
+    timer = setInterval(updateTimer,100); //starts timer
     updateTimer();
     game();
 }
@@ -125,14 +126,22 @@ function start(){
 function quit(){
     document.getElementById("background-music").pause();
     document.getElementById("background-music").currentTime = 0;
-    document.getElementById("congrats").play();
+    if(score>prevHighScore){
+        document.querySelector("h3").innerHTML = `New Highscore: ${score}`;
+        document.getElementById("yeet").play();
+    }
+    else
+    {
+        document.querySelector("h3").innerHTML = `Highscore: ${prevHighScore}`;
+        document.getElementById("congrats").play();
+    }
     console.log("game over!");
     document.querySelector("h1").innerHTML = "GAME <span>OVER!</span";
-    document.querySelector("h2").innerHTML = `You score ${score} points!`;
-    document.querySelector("h3").innerHTML = `Highscore: ${highScore}`;
+    document.querySelector("h2").innerHTML = `You score ${score} points!`; 
     document.querySelector(".answers").style.visibility = "hidden";
-    document.querySelector("#time-left").innerText = `Time Left : 0`;
+    document.querySelector("#time-left").innerText = `Time Left : 0.0`;
     document.querySelector("#play").style.visibility = "visible";
+    prevHighScore = highScore;
     clearInterval(timer);  //stops timer function
 }
 
