@@ -57,13 +57,11 @@ function randomButtonPlacement(){
     }
 }
 
-
 const colourButtonsEvent = document.querySelector(".answers"); 
 colourButtonsEvent.addEventListener("click",(e) =>{  
     if (e.target.className === "colour-btn"){
         if (level > 2){
             randomButtonPlacement();
-
         }
         if (e.target.id === document.querySelector("h2").innerText){
             console.log(document.querySelector("h2").innerText);
@@ -81,11 +79,11 @@ colourButtonsEvent.addEventListener("click",(e) =>{
         else {
             document.getElementById("error").play();
             console.log("Wrong!");
-            addTime(-1);
+            addTime(-2);
             document.querySelector("body").className = "flash";
             setTimeout(function(){document.querySelector("body").className = "";},1);
         }
-        if (score > highScore){
+        if (score > highScore){ //stores highscore
             highScore = score;
         }    
     }
@@ -113,8 +111,9 @@ document.querySelector("#play").addEventListener("click",start);
 function start(){
     timeLeft = 10;
     document.getElementById("background-music").play();
+    document.querySelector("h1").innerHTML = "Stroop <span>Effect</span>";
     document.querySelector("h2").style.visibility = "visible";
-    document.querySelector("h1").innerText = "Stroop Effect";
+    document.querySelector("h3").innerHTML = "";
     document.querySelector(".answers").style.visibility = "visible";
     document.querySelector("#play").style.visibility = "hidden";
     timer = setInterval(updateTimer,100);
@@ -128,8 +127,9 @@ function quit(){
     document.getElementById("background-music").currentTime = 0;
     document.getElementById("congrats").play();
     console.log("game over!");
-    document.querySelector("h1").innerHTML = "GAME OVER!";
+    document.querySelector("h1").innerHTML = "GAME <span>OVER!</span";
     document.querySelector("h2").innerHTML = `You score ${score} points!`;
+    document.querySelector("h3").innerHTML = `Highscore: ${highScore}`;
     document.querySelector(".answers").style.visibility = "hidden";
     document.querySelector("#time-left").innerText = `Time Left : 0`;
     document.querySelector("#play").style.visibility = "visible";
