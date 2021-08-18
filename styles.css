@@ -1,7 +1,7 @@
 /*font credits to Joiro Hatgaya*/
 @font-face {
     font-family: Eight Bit Wonder;
-    src: url(./add-ons/8-BIT-WONDER.TTF);
+    src: url(./add-ons/8-bit-wonder.ttf);
 }
 
 body{
@@ -70,4 +70,11 @@ h2{
 }
 #YELLOW{
     background-color: yellow;
+}
+
+footer{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    text-align: right;
 }

@@ -2,10 +2,14 @@
 
 let timer;
 let timeLeft = 10;
-let score = 0;
 let level = 1;
+let score = 0; 
 let highScore = 0;
 let prevHighScore = 0;
+
+const h1 = document.querySelector("h1");
+const h2 = document.querySelector("h2");
+const h3 = document.querySelector("h3");
 
 // class Game{
 //     constructor(level = 1, score = 0, timeLeft = 10){
@@ -15,7 +19,7 @@ let prevHighScore = 0;
 //     }
 // }
 
-document.querySelector("h2").style.visibility = "hidden";
+h2.style.visibility = "hidden";
 document.querySelector(".answers").style.visibility = "hidden";
 
 function randomColour(){
@@ -28,7 +32,7 @@ function randomColour(){
 
 function randomText(){
     const text = ["RED", "GREEN", "BLUE", "YELLOW"];
-    let i = Math.floor(Math.random() * 4);
+    let i = Math.floor(Math.random() * text.length);
     return text[i];
 }
 
@@ -37,14 +41,14 @@ function addTime(num){
     timer;
 }
 
-//Main game mechanics
-function game(){
+//resets game
+function reset(){
     score = 0; //resets score
     level = 1; //resets level
-    document.querySelector("h2").innerText = randomText();
-    document.querySelector("h2").style.color = randomColour();
-    document.querySelector("#level").innerText = `Level: 1`
-    document.querySelector("#score").innerText = `Score: 0`
+    h2.innerText = randomText();
+    h2.style.color = randomColour();
+    document.getElementById("level").innerText = `Level: 1`
+    document.getElementById("score").innerText = `Score: 0`
 }
 
 //random button placement
@@ -57,90 +61,89 @@ function randomButtonPlacement(){
     }
 }
 
+//colour buttons 
 const colourButtonsEvent = document.querySelector(".answers"); 
 colourButtonsEvent.addEventListener("click",(e) =>{  
     if (e.target.className === "colour-btn"){
-        if (e.target.id === document.querySelector("h2").innerText){
-            console.log(document.querySelector("h2").innerText);
+        if (e.target.id === h2.innerText){
+            console.log(h2.innerText);
             console.log("Correct!");
-            score++;  
+            score++;
+            document.getElementById("score").innerText = `Score: ${score}`  
             if (score % 10 === 0){
                 level++;
-                document.querySelector("#level").innerText = `Level: ${level}`    
+                document.getElementById("level").innerText = `Level: ${level}`    
             }
-            document.querySelector("#score").innerText = `Score: ${score}`
-            document.querySelector("h2").innerText = randomText();
-            document.querySelector("h2").style.color = randomColour();
-            addTime(2);
-            if (level > 2){
+            h2.innerText = randomText();
+            h2.style.color = randomColour();
+            addTime(2); //bonus
+            if (level > 2){ 
                 randomButtonPlacement();
             }
         }
         else {
             document.getElementById("error").play();
             console.log("Wrong!");
-            addTime(-2);
+            addTime(-2); //penalty
             document.querySelector("body").className = "flash"; //simulates a flash when wrong
-            setTimeout(function(){document.querySelector("body").className = "";},50);
+            setTimeout(function(){document.querySelector("body").className = "";},50); //reset "flash" after 50 ms
         }
-        
         if (score > highScore){ //stores highscore
             highScore = score;
         }    
     }
 });
 
-//Game timer
+//game timer
 function updateTimer(){
     if(timeLeft > 0){
-        document.querySelector("#time-left").innerText = `Time Left : ${timeLeft.toFixed(1)}`; //rounds off to 1 decimal place
-        timeLeft -= (0.07 + (level * 0.03));
+        document.getElementById("time-left").innerText = `Time Left : ${timeLeft.toFixed(1)}`; //rounds off to 1 decimal place
+        timeLeft -= (0.06 + (level * 0.04)); //change this to tweak difficulty // default ==> timeLeft -= (0.06 + (level * 0.04));
         if (timeLeft <= 5){
-            document.querySelector("#time-left").style.color = "red";
+            document.getElementById("time-left").style.color = "red"; //red font when time running out
         }
         else
-            document.querySelector("#time-left").style.color = "black";
-        // console.log(timeLeft);        
+            document.getElementById("time-left").style.color = "black";    
     }
     else
         quit();    
 }
 
-document.querySelector("#play").addEventListener("click",start);
+document.getElementById("play").addEventListener("click",start);
 
-//Start function
+//start function
 function start(){
     timeLeft = 10;
     document.getElementById("background-music").play();
-    document.querySelector("h1").innerHTML = "Stroop <span>Effect</span>";
-    document.querySelector("h2").style.visibility = "visible";
-    document.querySelector("h3").innerHTML = "";
+    h1.innerHTML = "Stroop <span>Effect</span>";
+    h2.style.visibility = "visible";
+    h3.innerHTML = "";
     document.querySelector(".answers").style.visibility = "visible";
-    document.querySelector("#play").style.visibility = "hidden";
+    document.getElementById("play").style.visibility = "hidden";
     timer = setInterval(updateTimer,100); //starts timer
     updateTimer();
-    game();
+    reset();
 }
 
-//Quit function
+//quit function
 function quit(){
     document.getElementById("background-music").pause();
     document.getElementById("background-music").currentTime = 0;
-    if(score>prevHighScore){
-        document.querySelector("h3").innerHTML = `New Highscore: ${score}`;
+    if(score > prevHighScore){
+        h3.innerHTML = `New Highscore: ${score}`;
         document.getElementById("yeet").play();
     }
     else
     {
-        document.querySelector("h3").innerHTML = `Highscore: ${prevHighScore}`;
+        h3.innerHTML = `Highscore: ${prevHighScore}`;
         document.getElementById("congrats").play();
     }
     console.log("game over!");
-    document.querySelector("h1").innerHTML = "GAME <span>OVER!</span";
-    document.querySelector("h2").innerHTML = `You score ${score} points!`; 
+    h1.innerHTML = "GAME <span>OVER!</span";
+    h2.innerHTML = `You score ${score} points!`; 
     document.querySelector(".answers").style.visibility = "hidden";
-    document.querySelector("#time-left").innerText = `Time Left : 0.0`;
-    document.querySelector("#play").style.visibility = "visible";
+    document.getElementById("time-left").innerText = `Time Left : 0.0`;
+    document.getElementById("play").style.visibility = "visible";
     prevHighScore = highScore;
     clearInterval(timer);  //stops timer function
 }
