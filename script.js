@@ -42,16 +42,6 @@ function addTime(num){
     timer;
 }
 
-//resets game
-function reset(){
-    score = 0; //resets score
-    level = 1; //resets level
-    h2.innerText = randomText();
-    h2.style.color = randomColour();
-    document.getElementById("level").innerText = `Level: 1`
-    document.getElementById("score").innerText = `Score: 0`
-}
-
 //random button placement
 let colourBtn = document.querySelectorAll(".colour-btn");
 function randomButtonPlacement(){
@@ -63,7 +53,7 @@ function randomButtonPlacement(){
 
 //coin flip
 function flipCoin(){
-    coin = Math.floor(Math.random() * 3);
+    coin = Math.floor(Math.random() * 3); //33% chance
 }
 
 //correct answer
@@ -84,7 +74,7 @@ function correct(){
         console.log(`coin is ${coin}`);
     }
     if(coin === 1){
-        h2.innerText = "Not " + randomText();
+        h2.innerHTML = `<strong>Not</strong> ${randomText()}`;
     }
     else{   
         h2.innerText = randomText();
@@ -129,11 +119,22 @@ colourButtonsEvent.addEventListener("click",(e) =>{
     }
 });
 
+//resets game
+function reset(){
+    score = 0; //resets score
+    level = 1; //resets level
+    coin = 0; //default chance
+    h2.innerText = randomText();
+    h2.style.color = randomColour();
+    document.getElementById("level").innerText = `Level: 1`
+    document.getElementById("score").innerText = `Score: 0`
+}
+
 //game timer
 function updateTimer(){
     if(timeLeft > 0){
         document.getElementById("time-left").innerText = `Time Left : ${timeLeft.toFixed(1)}`; //rounds off to 1 decimal place
-        timeLeft -= (0.08 + (level * 0.02)); //change this to tweak difficulty // default ==> timeLeft -= (0.06 + (level * 0.04));
+        timeLeft -= (0.07 + (level * 0.03)); //change this to tweak difficulty // default ==> timeLeft -= (0.06 + (level * 0.04));
         if (timeLeft <= 5){
             document.getElementById("time-left").style.color = "red"; //red font when time running out
         }
@@ -149,7 +150,6 @@ document.getElementById("play").addEventListener("click",start);
 //start function
 function start(){
     timeLeft = 10;
-    coin = 0;
     document.getElementById("background-music").play();
     h1.innerHTML = "Stroop <span>Effect</span>";
     h2.style.visibility = "visible";
