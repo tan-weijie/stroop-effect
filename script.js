@@ -6,6 +6,7 @@ let level = 1;
 let score = 0; 
 let highScore = 0;
 let prevHighScore = 0;
+let coin = 0;
 
 const h1 = document.querySelector("h1");
 const h2 = document.querySelector("h2");
@@ -56,9 +57,13 @@ let colourBtn = document.querySelectorAll(".colour-btn");
 function randomButtonPlacement(){
     for(let i = 0; i < colourBtn.length; i++){
         let x = Math.floor(Math.random() * colourBtn.length);
-        console.log(colourBtn[x].before(colourBtn[i]));
         colourBtn[x].before(colourBtn[i]);
     }
+}
+
+//coin flip
+function flipCoin(){
+    coin = Math.floor(Math.random() * 3);
 }
 
 //correct answer
@@ -71,16 +76,22 @@ function correct(){
         level++;
         document.getElementById("level").innerText = `Level: ${level}`    
     }
-    if(level >= 5){
-        h2.innerText = "Not " + randomText();
-    }
-    else
-        h2.innerText = randomText();
-    h2.style.color = randomColour();
-    addTime(2); //bonus
     if (level > 2){ 
         randomButtonPlacement();
     }
+    if (level > 4){
+        flipCoin();
+        console.log(`coin is ${coin}`);
+    }
+    if(coin === 1){
+        h2.innerText = "Not " + randomText();
+    }
+    else{   
+        h2.innerText = randomText();
+    }
+    h2.style.color = randomColour();
+    addTime(2); //bonus
+
 }
 
 //wrong answer
@@ -96,16 +107,16 @@ function wrong(){
 const colourButtonsEvent = document.querySelector(".answers"); 
 colourButtonsEvent.addEventListener("click",(e) =>{  
     if (e.target.className === "colour-btn"){
-        if(level < 5){
-            if (h2.innerText.includes(e.target.id)){
+        if(coin === 1){
+            if (!(h2.innerText.includes(e.target.id))){
                 correct();
             }
             else {
                 wrong();
             }
         }
-        else if(level > 4){
-            if (!(h2.innerText.includes(e.target.id))){
+        else{
+            if (h2.innerText.includes(e.target.id)){
                 correct();
             }
             else {
@@ -122,7 +133,7 @@ colourButtonsEvent.addEventListener("click",(e) =>{
 function updateTimer(){
     if(timeLeft > 0){
         document.getElementById("time-left").innerText = `Time Left : ${timeLeft.toFixed(1)}`; //rounds off to 1 decimal place
-        timeLeft -= (0.07 + (level * 0.03)); //change this to tweak difficulty // default ==> timeLeft -= (0.06 + (level * 0.04));
+        timeLeft -= (0.08 + (level * 0.02)); //change this to tweak difficulty // default ==> timeLeft -= (0.06 + (level * 0.04));
         if (timeLeft <= 5){
             document.getElementById("time-left").style.color = "red"; //red font when time running out
         }
@@ -138,6 +149,7 @@ document.getElementById("play").addEventListener("click",start);
 //start function
 function start(){
     timeLeft = 10;
+    coin = 0;
     document.getElementById("background-music").play();
     h1.innerHTML = "Stroop <span>Effect</span>";
     h2.style.visibility = "visible";
