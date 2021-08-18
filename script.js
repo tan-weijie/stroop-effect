@@ -61,36 +61,60 @@ function randomButtonPlacement(){
     }
 }
 
+//correct answer
+function correct(){
+    console.log(h2.innerText);
+    console.log("Correct!");
+    score++;
+    document.getElementById("score").innerText = `Score: ${score}`  
+    if (score % 10 === 0){
+        level++;
+        document.getElementById("level").innerText = `Level: ${level}`    
+    }
+    if(level >= 5){
+        h2.innerText = "Not " + randomText();
+    }
+    else
+        h2.innerText = randomText();
+    h2.style.color = randomColour();
+    addTime(2); //bonus
+    if (level > 2){ 
+        randomButtonPlacement();
+    }
+}
+
+//wrong answer
+function wrong(){
+    document.getElementById("error").play();
+    console.log("Wrong!");
+    addTime(-2); //penalty
+    document.querySelector("body").className = "flash"; //simulates a flash when wrong
+    setTimeout(function(){document.querySelector("body").className = "";},50); //reset "flash" after 50 ms
+}
+
 //colour buttons 
 const colourButtonsEvent = document.querySelector(".answers"); 
 colourButtonsEvent.addEventListener("click",(e) =>{  
     if (e.target.className === "colour-btn"){
-        if (e.target.id === h2.innerText){
-            console.log(h2.innerText);
-            console.log("Correct!");
-            score++;
-            document.getElementById("score").innerText = `Score: ${score}`  
-            if (score % 10 === 0){
-                level++;
-                document.getElementById("level").innerText = `Level: ${level}`    
+        if(level < 5){
+            if (h2.innerText.includes(e.target.id)){
+                correct();
             }
-            h2.innerText = randomText();
-            h2.style.color = randomColour();
-            addTime(2); //bonus
-            if (level > 2){ 
-                randomButtonPlacement();
+            else {
+                wrong();
             }
         }
-        else {
-            document.getElementById("error").play();
-            console.log("Wrong!");
-            addTime(-2); //penalty
-            document.querySelector("body").className = "flash"; //simulates a flash when wrong
-            setTimeout(function(){document.querySelector("body").className = "";},50); //reset "flash" after 50 ms
+        else if(level > 4){
+            if (!(h2.innerText.includes(e.target.id))){
+                correct();
+            }
+            else {
+                wrong();
+            }
         }
         if (score > highScore){ //stores highscore
             highScore = score;
-        }    
+        } 
     }
 });
 
@@ -98,7 +122,7 @@ colourButtonsEvent.addEventListener("click",(e) =>{
 function updateTimer(){
     if(timeLeft > 0){
         document.getElementById("time-left").innerText = `Time Left : ${timeLeft.toFixed(1)}`; //rounds off to 1 decimal place
-        timeLeft -= (0.06 + (level * 0.04)); //change this to tweak difficulty // default ==> timeLeft -= (0.06 + (level * 0.04));
+        timeLeft -= (0.07 + (level * 0.03)); //change this to tweak difficulty // default ==> timeLeft -= (0.06 + (level * 0.04));
         if (timeLeft <= 5){
             document.getElementById("time-left").style.color = "red"; //red font when time running out
         }
