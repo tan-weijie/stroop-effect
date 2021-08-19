@@ -12,15 +12,7 @@ const h1 = document.querySelector("h1");
 const h2 = document.querySelector("h2");
 const h3 = document.querySelector("h3");
 
-// class Game{
-//     constructor(level = 1, score = 0, timeLeft = 10){
-//         this.level = level,
-//         this.score = score,
-//         this.timeLeft = timeLeft
-//     }
-// }
-
-h2.style.visibility = "hidden";
+// h2.style.visibility = "hidden";
 document.querySelector(".answers").style.visibility = "hidden";
 
 function randomColour(){
@@ -71,7 +63,7 @@ function correct(){
     }
     if (level > 4){
         flipCoin();
-        console.log(`coin is ${coin}`);
+        // console.log(`coin is ${coin}`);
     }
     if(coin === 1){
         h2.innerHTML = `<strong>Not</strong> ${randomText()}`;
@@ -89,7 +81,7 @@ function wrong(){
     document.getElementById("error").play();
     console.log("Wrong!");
     addTime(-2); //penalty
-    document.querySelector("body").className = "flash"; //simulates a flash when wrong
+    document.querySelector("body").className = "flash"; //displays a "flash" when choice is wrong
     setTimeout(function(){document.querySelector("body").className = "";},50); //reset "flash" after 50 ms
 }
 
