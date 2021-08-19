@@ -4,7 +4,9 @@ First game. Made with HTML, CSS, and vanilla JS.
 
 ## Introduction
 
-Stroop Effect is not a fancy game name that I have came out with. The term Stroop effect is a simple phenomenon that reveals a lot about how the brain processes information. Click this link for more information. => https://en.wikipedia.org/wiki/Stroop_effect
+Stroop Effect is not a fancy game name that I have came out with. The term Stroop effect is a simple phenomenon that reveals a lot about how the brain processes information. 
+
+[Click this link for more information] => https://en.wikipedia.org/wiki/Stroop_effect
 
 ## Game Instructions
 
