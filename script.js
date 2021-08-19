@@ -12,7 +12,7 @@ const h1 = document.querySelector("h1");
 const h2 = document.querySelector("h2");
 const h3 = document.querySelector("h3");
 
-// h2.style.visibility = "hidden";
+h2.style.visibility = "hidden";
 document.querySelector(".answers").style.visibility = "hidden";
 
 function randomColour(){
@@ -149,7 +149,6 @@ function start(){
     document.querySelector(".answers").style.visibility = "visible";
     document.getElementById("play").style.visibility = "hidden";
     timer = setInterval(updateTimer,100); //starts timer
-    updateTimer();
     reset();
 }
 
