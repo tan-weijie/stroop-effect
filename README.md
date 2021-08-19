@@ -1,8 +1,8 @@
 # Stroop-Effect
 
+![stroop](Yellow_Red_Green.svg)
 
 ### Introduction
-![stroop](Yellow_Red_Green.svg)
 
 Stroop Effect is not a fancy game name that I have came out with. The term Stroop effect is a simple phenomenon that reveals a lot about how the brain processes information. 
 
