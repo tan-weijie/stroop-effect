@@ -1,6 +1,6 @@
 # Stroop-Effect
 
-![stroop](Yellow_Red_Green.svg)
+![stroop](add-ons/Yellow_Red_Green.svg)
 
 ### Introduction
 
