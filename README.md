@@ -1,6 +1,5 @@
 # Stroop-Effect
 
-First game. Made with HTML, CSS, and vanilla JS.
 
 ### Introduction
 
@@ -8,9 +7,15 @@ Stroop Effect is not a fancy game name that I have came out with. The term Stroo
 
 [Click this link for more information] => https://en.wikipedia.org/wiki/Stroop_effect
 
-### Game Instructions
+### How Was This Made?
 
-I do not know why I actually typed this out. The game is so simple you just have to follow the in-game instruction given. You will understand once you run it.
+Only HTML, CSS, and vanilla JS was used together with a little inspiration of some HTML games I've played when I was younger. This game was made to be very simple because of the retro 8-bit arcade theme I've decided to use.
+
+### How to Play?
+
+You just have to follow the in-game text given and click on the matching buttons. You will understand once you run it.
+
+explanations of the technologies used, the approach taken, installation instructions, unsolved problems
 
 ### Game Link
 
