@@ -10,7 +10,7 @@ Stroop Effect is not a fancy game name that I have came out with. The term Stroo
 
 ### How Was This Made?
 
-With a little inspiration of some HTML games I've played when I was younger, this simple, vibrant game is put together with only HTML, CSS, and vanilla JS. 
+With a little inspiration of some 8 bit arcade games I've played when I was younger, this simple, vibrant game is put together with only HTML, CSS, and vanilla JS. This is also the first game that I've made. 
 
 ### How to Play?
 
