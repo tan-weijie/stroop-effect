@@ -126,7 +126,7 @@ function reset(){
 function updateTimer(){
     if(timeLeft > 0){
         document.getElementById("time-left").innerText = `Time Left : ${timeLeft.toFixed(1)}`; //rounds off to 1 decimal place
-        timeLeft -= (0.07 + (level * 0.03)); //change this to tweak difficulty // default ==> timeLeft -= (0.06 + (level * 0.04));
+        timeLeft -= (0.07 + (level * 0.03)); //change this to tweak difficulty // default ==> timeLeft -= (0.07 + (level * 0.03));
         if (timeLeft <= 5){
             document.getElementById("time-left").style.color = "red"; //red font when time running out
         }

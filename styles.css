@@ -85,10 +85,3 @@ strong{
 #YELLOW{
     background-color: yellow;
 }
-
-footer{
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-    text-align: right;
-}
